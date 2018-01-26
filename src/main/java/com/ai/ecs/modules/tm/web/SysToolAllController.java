@@ -33,6 +33,7 @@ import com.ai.ecs.modules.tm.service.SysToolCheckRecordService;
  * 工具管理Controller
  * @author liulu6
  * @version 2017-11-10
+ * 日期2018
  */
 @Controller
 @RequestMapping(value = "${adminPath}/tm/sysToolAll")
@@ -180,5 +181,6 @@ public class SysToolAllController extends BaseController {
 		addMessage(redirectAttributes, "删除工具管理成功");
 		return "redirect:"+Global.getAdminPath()+"/tm/sysToolAll/?repage";
 	}
+
 
 }
