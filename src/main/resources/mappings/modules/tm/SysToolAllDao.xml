@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ai.ecs.modules.tm.dao.SysToolAllDao">
+    
+	<sql id="sysToolAllColumns">
+		a.tool_id AS "toolId",
+		a.tool_name AS "toolName",
+		a.specification AS "specification",
+		a.buy_date AS "buyDate",
+		a.create_date AS "createDate",
+		a.delete_date AS "deleteDate",
+		a.check_date AS "checkDate",
+		a.pre_check_date AS "preCheckDate",
+		a.keeper AS "keeper",
+		a.del_flag AS "delFlag",
+		a.remarks AS "remarks",
+		a.phone AS "phone",
+		a.amount AS "amount",
+		a.check_times AS "checkTimes",
+		a.check_flag AS "checkFlag",
+		a.record_flag AS  "recordFlag",
+		a.is_cycle AS "isCycle",
+		a.CHECKPERIOD  AS "checkPeriod"
+	</sql>
+	
+	<sql id="sysToolAllJoins">
+	</sql>
+    
+	<select id="get" resultType="SysToolAll">
+		SELECT 
+			<include refid="sysToolAllColumns"/>
+		FROM sys_tool_all a
+		<include refid="sysToolAllJoins"/>
+		WHERE a.tool_id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SysToolAll">
+		SELECT 
+		A.TOOL_ID AS "toolId",
+		SD1.LABEL AS "toolName",
+		SD2.LABEL AS "specification",
+		A.BUY_DATE AS "buyDate",
+		A.CREATE_DATE AS "createDate",
+		A.DELETE_DATE AS "deleteDate",
+		A.CHECK_DATE AS "checkDate",
+		A.PRE_CHECK_DATE AS "preCheckDate",
+		A.KEEPER AS "keeper",
+		A.DEL_FLAG AS "delFlag",
+		A.REMARKS AS "remarks",
+		A.PHONE AS "phone",
+		A.amount AS "amount",
+		a.check_times AS "checkTimes",
+		a.check_flag AS "checkFlag" ,
+		a.is_cycle AS "isCycle",
+		a.CHECKPERIOD  AS "checkPeriod"
+		FROM SYS_TOOL_ALL A
+		LEFT JOIN SYS_DICT SD1
+		ON A.TOOL_NAME = SD1.VALUE
+		LEFT JOIN SYS_DICT SD2
+		ON A.SPECIFICATION = SD2.VALUE 
+		<where>
+			1=1
+			<if test="toolId != null and toolId != ''">
+				and a.tool_id=#{toolId}
+			</if>
+			<if test="toolName != null and toolName != ''">
+				and a.tool_name=#{toolName}
+			</if>
+			<if test="specification != null and specification != ''">
+				and a.specification=#{specification}
+			</if>
+			<if test="checkFlag != null and checkFlag != ''">
+				and a.check_flag=#{checkFlag}
+			</if>
+				and a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysToolAll">
+		SELECT 
+			<include refid="sysToolAllColumns"/>
+		FROM sys_tool_all a
+		<include refid="sysToolAllJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insertUnique" parameterType="com.ai.ecs.modules.tm.entity.SysTollAllReturn">
+		<selectKey keyProperty="toolId" resultType="INTEGER" order="BEFORE">
+			select TM_TOOL_SEQ.NEXTVAL from dual
+		</selectKey>
+		INSERT INTO sys_tool_all(
+			tool_id,
+			tool_name,
+			specification,
+			buy_date,
+			create_date,
+			delete_date,
+			check_date,
+			pre_check_date,
+			keeper,
+			del_flag,
+			remarks,
+			phone,
+			amount,
+			check_times,
+			check_flag,
+			record_flag,
+			is_cycle,
+			CHECKPERIOD
+		) VALUES (
+			#{toolId},
+			#{toolName},
+			#{specification},
+			#{buyDate},
+			#{createDate},
+			#{deleteDate},
+			#{checkDate},
+			#{preCheckDate},
+			#{keeper},
+			#{delFlag},
+			#{remarks},
+			#{phone},
+			#{amount},
+			#{checkTimes},
+			#{checkFlag},
+			#{recordFlag},
+			#{isCycle},
+			#{checkPeriod}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_tool_all SET 	
+			tool_id = #{toolId},
+			tool_name = #{toolName},
+			specification = #{specification},
+			buy_date = #{buyDate},
+			delete_date = #{deleteDate},
+			check_date = #{checkDate},
+			pre_check_date = #{preCheckDate},
+			keeper = #{keeper},
+			remarks = #{remarks},
+			phone = #{phone},
+			amount = #{amount},
+			check_times = #{checkTimes},
+			check_flag = #{checkFlag},
+			record_flag = #{recordFlag},
+			is_cycle = #{isCycle},
+			CHECKPERIOD = #{checkPeriod}
+		WHERE tool_id = #{toolId}
+	</update>
+	
+	<update id="delete">
+		UPDATE sys_tool_all SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE tool_id = #{toolId}
+	</update>
+	
+	<select id="findListForRecord" resultType="SysToolAll">
+		SELECT 
+			<include refid="sysToolAllColumns"/> 
+			 , T.period AS "period" 
+		FROM SYS_TOOL_ALL a
+  			LEFT JOIN SYS_REMIND_INFO T
+    		ON a.TOOL_ID = T.TOOL_ID	 
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL} and a.record_flag = 0
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findNeedCheckToolList" resultType="SysToolAll">
+		SELECT T1.*
+		FROM SYS_TOOL_ALL T1
+		LEFT JOIN SYS_TOOL_CHECK_RECORD T2
+		ON T1.TOOL_ID = T2.TOOL_ID
+		<where>
+			1=1
+			and T2.DEL_FLAG != '1'
+			<if test="toolId != null and toolId != ''">
+				and a.tool_id=#{toolId}
+			</if>
+			 ORDER BY T1.tool_id
+		</where>
+
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+
+
+	
+</mapper>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ai.ecs.modules.tm.dao.SysRemindInfoDao">
+    
+	<sql id="sysRemindInfoColumns">
+		a.tool_id AS "toolId",
+		a.period AS "period",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="sysRemindInfoJoins">
+	</sql>
+    
+	<select id="get" resultType="SysRemindInfo">
+		SELECT 
+			<include refid="sysRemindInfoColumns"/>
+		FROM sys_remind_info a
+		<include refid="sysRemindInfoJoins"/>
+		WHERE a.tool_id = #{toolId}
+	</select>
+	
+	<select id="findList" resultType="SysRemindInfo">
+		SELECT
+		<include refid="sysRemindInfoColumns"/>
+		FROM sys_remind_info a
+		<include refid="sysRemindInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysRemindInfo">
+		SELECT 
+			<include refid="sysRemindInfoColumns"/>
+		FROM sys_remind_info a
+		<include refid="sysRemindInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sys_remind_info(
+			tool_id,
+			period,
+			create_date,
+			update_date,
+			del_flag
+		) VALUES (
+			#{toolId},
+			#{period},
+			#{createDate},
+			#{updateDate},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_remind_info SET 	
+			tool_id = #{toolId},
+			period = #{period},
+			update_date = #{updateDate}
+		WHERE TOOL_ID = #{toolId}
+	</update>
+
+	<update id="updateBatch">
+		UPDATE sys_remind_info SET
+		period = #{period},
+		update_date = #{updateDate}
+	</update>
+	
+	<update id="delete">
+		UPDATE sys_remind_info SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE TOOL_ID = #{toolId}
+	</update>
+	
+</mapper>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<oppinfos>
+	<url>http://135.10.51.76:18081/openstore/app/guizhou</url>
+	<!-- <url>http://135.10.20.85:8080/openstore/app/guizhou</url> -->
+	<!-- 交易流水 -->
+	<TransactionId>20160526152543095970077119</TransactionId>
+	<!-- 交易时间 -->
+	<TransactionTime>20160526 152543</TransactionTime>
+	<!-- 接口标识 -->
+	<InterfaceId>6000</InterfaceId>
+	<!-- 接口类型 -->
+	<InterfaceType>29</InterfaceType>
+	<!-- 操作员Id -->
+	<OpId>10001768</OpId>
+	<!-- 操作员组织Id 已不使用 -->
+	<OrgId>88000218</OrgId>
+	<!-- 操作员登录地区标识 -->
+	<RegionCode>852</RegionCode>
+	<!-- 操作员登录县市标识 -->
+	<CountyCode>852001</CountyCode>
+	<!-- 客户端IP -->
+	<ClientIP>10.70.128.132</ClientIP>
+	<!-- 店员编号 -->
+	<ClerkId>10001768</ClerkId>
+</oppinfos>
