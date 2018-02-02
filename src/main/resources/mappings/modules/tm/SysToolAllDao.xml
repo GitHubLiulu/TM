@@ -20,7 +20,8 @@
 		a.check_flag AS "checkFlag",
 		a.record_flag AS  "recordFlag",
 		a.is_cycle AS "isCycle",
-		a.CHECKPERIOD  AS "checkPeriod"
+		a.CHECKPERIOD  AS "checkPeriod",
+		a.TOOL_ID_REAL AS "toolIdReal"
 	</sql>
 	
 	<sql id="sysToolAllJoins">
@@ -52,7 +53,8 @@
 		a.check_times AS "checkTimes",
 		a.check_flag AS "checkFlag" ,
 		a.is_cycle AS "isCycle",
-		a.CHECKPERIOD  AS "checkPeriod"
+		a.CHECKPERIOD  AS "checkPeriod",
+		a.TOOL_ID_REAL AS "toolIdReal"
 		FROM SYS_TOOL_ALL A
 		LEFT JOIN SYS_DICT SD1
 		ON A.TOOL_NAME = SD1.VALUE
@@ -122,7 +124,8 @@
 			check_flag,
 			record_flag,
 			is_cycle,
-			CHECKPERIOD
+			CHECKPERIOD,
+			TOOL_ID_REAL
 		) VALUES (
 			#{toolId},
 			#{toolName},
@@ -141,7 +144,8 @@
 			#{checkFlag},
 			#{recordFlag},
 			#{isCycle},
-			#{checkPeriod}
+			#{checkPeriod},
+			#{toolIdReal}
 		)
 	</insert>
 	
@@ -162,7 +166,8 @@
 			check_flag = #{checkFlag},
 			record_flag = #{recordFlag},
 			is_cycle = #{isCycle},
-			CHECKPERIOD = #{checkPeriod}
+			CHECKPERIOD = #{checkPeriod},
+			TOOL_ID_REAL = #{toolIdReal}
 		WHERE tool_id = #{toolId}
 	</update>
 	
