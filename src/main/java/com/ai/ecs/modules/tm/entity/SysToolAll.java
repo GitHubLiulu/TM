@@ -41,6 +41,8 @@ public class SysToolAll extends DataEntity<SysToolAll> {
 
 	private String remainDay; //离校验还剩多少天   计算方式：校验日期 - 当前日期
 
+	private String toolIdReal ;//用户实际录入ID
+
 	public SysToolAll() {
 		super();
 		this.checkTimes = DEL_FLAG_NORMAL;
@@ -48,6 +50,13 @@ public class SysToolAll extends DataEntity<SysToolAll> {
 		this.recordFlag = DEL_FLAG_NORMAL;
 	}
 
+	public String getToolIdReal() {
+		return toolIdReal;
+	}
+
+	public void setToolIdReal(String toolIdReal) {
+		this.toolIdReal = toolIdReal;
+	}
 
 	public String getCheckPeriod() {
 		return checkPeriod;
