@@ -16,6 +16,10 @@ public class SysToolCheckRecord extends DataEntity<SysToolCheckRecord> {
 	
 	private static final long serialVersionUID = 1L;
 	private String toolId;		// TOOL_ID
+
+	private String toolName;		// tool_name
+
+	private String toolIdReal ;//用户实际录入ID
 	
 	public SysToolCheckRecord() {
 		super();
@@ -33,5 +37,20 @@ public class SysToolCheckRecord extends DataEntity<SysToolCheckRecord> {
 	public void setToolId(String toolId) {
 		this.toolId = toolId;
 	}
-	
+
+	public String getToolName() {
+		return toolName;
+	}
+
+	public void setToolName(String toolName) {
+		this.toolName = toolName;
+	}
+
+	public String getToolIdReal() {
+		return toolIdReal;
+	}
+
+	public void setToolIdReal(String toolIdReal) {
+		this.toolIdReal = toolIdReal;
+	}
 }

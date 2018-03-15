@@ -48,7 +48,7 @@
 			<tr>
 				<td><a href="${ctx}/tm/sysRemindInfo/form?id=${sysRemindInfo.toolId}">
 					<%-- <fmt:formatDate value="${sysRemindInfo.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/> --%>
-					${sysRemindInfo.toolId}
+					${sysRemindInfo.toolIdReal}
 				</a></td>
 				<td>提前${sysRemindInfo.period}天提醒</td>
 				<shiro:hasPermission name="tm:sysRemindInfo:edit"><td>

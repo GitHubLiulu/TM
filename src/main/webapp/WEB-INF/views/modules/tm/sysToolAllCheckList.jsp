@@ -64,7 +64,7 @@
 				<%--<td><a href="${ctx}/tm/sysToolAll/form?id=${sysToolAll.toolId}">
 					${sysToolAll.toolId}
 				</a></td>--%>
-				<td>${sysToolAll.toolId}</td>
+				<td>${sysToolAll.toolIdReal}</td>
 				<%--<td>${sysToolAll.toolName}</td>--%>
 				<%--<td>${sysToolAll.specification}</td>--%>
 				<td>${sysToolAll.remainDay}天</td>

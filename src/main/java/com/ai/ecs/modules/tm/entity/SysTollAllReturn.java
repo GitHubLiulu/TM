@@ -32,6 +32,46 @@ public class SysTollAllReturn extends DataEntity<SysToolAll> {
 
     private String isCycle; //是否循环校验工具，0为循环校验，1为仅校验一次
 
+    private String origin; //定义来源，确定是否是来源于校验工具之后  0为是，1为否
+
+    private String remainDay; //离校验还剩多少天   计算方式：校验日期 - 当前日期
+
+    private String toolIdReal ;//用户实际录入ID
+
+    private String price ; //价格
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public String getRemainDay() {
+        return remainDay;
+    }
+
+    public void setRemainDay(String remainDay) {
+        this.remainDay = remainDay;
+    }
+
+    public String getToolIdReal() {
+        return toolIdReal;
+    }
+
+    public void setToolIdReal(String toolIdReal) {
+        this.toolIdReal = toolIdReal;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
     public Integer getToolId() {
         return toolId;
     }

@@ -21,7 +21,8 @@
 		a.record_flag AS  "recordFlag",
 		a.is_cycle AS "isCycle",
 		a.CHECKPERIOD  AS "checkPeriod",
-		a.TOOL_ID_REAL AS "toolIdReal"
+		a.TOOL_ID_REAL AS "toolIdReal",
+		a.PRICE as "price"
 	</sql>
 	
 	<sql id="sysToolAllJoins">
@@ -70,6 +71,9 @@
 			</if>
 			<if test="specification != null and specification != ''">
 				and a.specification=#{specification}
+			</if>
+			<if test="toolIdReal != null and toolIdReal != ''">
+				and a.TOOL_ID_REAL=#{toolIdReal}
 			</if>
 			<if test="checkFlag != null and checkFlag != ''">
 				and a.check_flag=#{checkFlag}
@@ -125,7 +129,8 @@
 			record_flag,
 			is_cycle,
 			CHECKPERIOD,
-			TOOL_ID_REAL
+			TOOL_ID_REAL,
+			price
 		) VALUES (
 			#{toolId},
 			#{toolName},
@@ -145,7 +150,8 @@
 			#{recordFlag},
 			#{isCycle},
 			#{checkPeriod},
-			#{toolIdReal}
+			#{toolIdReal},
+			#{price}
 		)
 	</insert>
 	
@@ -167,7 +173,8 @@
 			record_flag = #{recordFlag},
 			is_cycle = #{isCycle},
 			CHECKPERIOD = #{checkPeriod},
-			TOOL_ID_REAL = #{toolIdReal}
+			TOOL_ID_REAL = #{toolIdReal},
+			price =#{price}
 		WHERE tool_id = #{toolId}
 	</update>
 	

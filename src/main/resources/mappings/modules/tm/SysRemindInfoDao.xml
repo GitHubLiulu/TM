@@ -7,6 +7,7 @@
 		a.period AS "period",
 		a.create_date AS "createDate",
 		a.update_date AS "updateDate",
+		a.TOOL_ID_REAL AS "toolIdReal",
 		a.del_flag AS "delFlag"
 	</sql>
 	
@@ -63,12 +64,14 @@
 			period,
 			create_date,
 			update_date,
+			TOOL_ID_REAL,
 			del_flag
 		) VALUES (
 			#{toolId},
 			#{period},
 			#{createDate},
 			#{updateDate},
+			#{toolIdReal},
 			#{delFlag}
 		)
 	</insert>
@@ -77,6 +80,7 @@
 		UPDATE sys_remind_info SET 	
 			tool_id = #{toolId},
 			period = #{period},
+			TOOL_ID_REAL=#{toolIdReal},
 			update_date = #{updateDate}
 		WHERE TOOL_ID = #{toolId}
 	</update>

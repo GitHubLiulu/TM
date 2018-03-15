@@ -17,7 +17,17 @@ public class SysRemindInfo extends DataEntity<SysRemindInfo> {
 	private static final long serialVersionUID = 1L;
 	private String toolId;		// TOOL_ID
 	private String period;		// PERIOD
-	
+
+	private String toolIdReal ;//用户实际录入ID
+
+	public String getToolIdReal() {
+		return toolIdReal;
+	}
+
+	public void setToolIdReal(String toolIdReal) {
+		this.toolIdReal = toolIdReal;
+	}
+
 	public SysRemindInfo() {
 		super();
 	}

@@ -37,7 +37,7 @@
 		<div class="control-group">
 			<label class="control-label">工具ID：</label>
 			<div class="controls">
-				<form:input path="toolId" htmlEscape="false" maxlength="64" class="input-medium required"/>
+				<form:input path="toolIdReal" htmlEscape="false" maxlength="64" class="input-medium required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>

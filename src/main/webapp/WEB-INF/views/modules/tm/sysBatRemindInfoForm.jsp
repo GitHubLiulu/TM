@@ -28,8 +28,8 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li><a href="${ctx}/tm/sysRemindInfo/">提醒周期定义列表</a></li>
-		<li class="active"><a href="${ctx}/tm/sysRemindInfo/form?id=${sysRemindInfo.id}">提醒周期定义<shiro:hasPermission name="tm:sysRemindInfo:edit">${not empty sysRemindInfo.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="tm:sysRemindInfo:edit">查看</shiro:lacksPermission></a></li>
-		<li><a>批量定义提醒周期</a></li>
+		<li ><a href="${ctx}/tm/sysRemindInfo/form?id=${sysRemindInfo.id}">提醒周期定义<shiro:hasPermission name="tm:sysRemindInfo:edit">${not empty sysRemindInfo.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="tm:sysRemindInfo:edit">查看</shiro:lacksPermission></a></li>
+		<li class="active"><a>批量定义提醒周期</a></li>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="sysRemindInfo" action="${ctx}/tm/sysRemindInfo/saveBatch" method="post" class="form-horizontal">
 		<form:hidden path="id"/>

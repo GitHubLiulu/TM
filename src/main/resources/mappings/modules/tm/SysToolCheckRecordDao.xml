@@ -4,8 +4,11 @@
     
 	<sql id="sysToolCheckRecordColumns">
 		a.tool_id AS "toolId",
+		a.TOOL_NAME AS "toolName",
+		a.TOOL_ID_REAL AS "toolIdReal",
 		a.create_date AS "createDate",
 		a.update_date AS "updateDate",
+		a.TOOL_ID_REAL AS "toolIdReal",
 		a.del_flag AS "delFlag"
 	</sql>
 	
@@ -17,16 +20,36 @@
 			<include refid="sysToolCheckRecordColumns"/>
 		FROM sys_tool_check_record a
 		<include refid="sysToolCheckRecordJoins"/>
-		WHERE a.id = #{id}
+		WHERE a.tool_id = #{id}
 	</select>
 	
 	<select id="findList" resultType="SysToolCheckRecord">
-		SELECT 
-			<include refid="sysToolCheckRecordColumns"/>
+		SELECT
+			a.tool_id AS "toolId",
+			SD1.LABEL AS "toolName",
+			a.TOOL_ID_REAL AS "toolIdReal",
+			a.create_date AS "createDate",
+			a.update_date AS "updateDate",
+			a.del_flag AS "delFlag"
 		FROM sys_tool_check_record a
+		LEFT JOIN SYS_DICT SD1
+		ON A.TOOL_NAME = SD1.VALUE
 		<include refid="sysToolCheckRecordJoins"/>
 		<where>
-			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="toolId != null and toolId != ''">
+				and a.tool_id=#{toolId}
+			</if>
+			<if test="toolName != null and toolName != ''">
+				and a.tool_name=#{toolName}
+			</if>
+			<if test="toolIdReal != null and toolIdReal != ''">
+				and a.TOOL_ID_REAL=#{toolIdReal}
+			</if>
+			<if test="delFlag != null and delFlag != ''">
+				and	a.del_flag = #{delFlag}
+			</if>
+
+
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
@@ -59,11 +82,15 @@
 	<insert id="insert">
 		INSERT INTO sys_tool_check_record(
 			tool_id,
+			tool_name,
+			TOOL_ID_REAL,
 			create_date,
 			update_date,
 			del_flag
 		) VALUES (
 			#{toolId},
+			#{toolName},
+			#{toolIdReal},
 			#{createDate},
 			#{updateDate},
 			#{delFlag}
@@ -73,6 +100,8 @@
 	<update id="update">
 		UPDATE sys_tool_check_record SET 	
 			tool_id = #{toolId},
+			tool_name=#{toolName},
+			TOOL_ID_REAL=#{toolIdReal},
 			update_date = #{updateDate},
 			del_flag = #{delFlag}
 		WHERE tool_id = #{toolId}

@@ -67,6 +67,7 @@
 		<form:hidden path="toolId"/>
 		<form:hidden path="checkTimes"/>
 		<form:hidden path="checkFlag"/>
+
 		<%--<form:hidden path="preCheckDate"/>--%>
 		<sys:message content="${message}"/>		
 		<%-- <div class="control-group">
@@ -101,6 +102,13 @@
 			</div>
 		</div>
 		<div class="control-group">
+			<label class="control-label">价格：</label>
+			<div class="controls" >
+				<form:input path="price" htmlEscape="false" maxlength="12" class="input-medium "/>
+			</div>
+		</div>
+
+		<div class="control-group">
 			<label class="control-label">购买时间：</label>
 			<div class="controls">
 				<input name="buyDate" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
@@ -109,7 +117,7 @@
 			</div>
 		</div>
 		<div class="control-group" style="display:none;">
-			<label class="control-label">购买时间：</label>
+			<label class="control-label">上次校验时间：</label>
 			<div class="controls">
 				<input name="preCheckDate" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
 					   value="<fmt:formatDate value="${sysToolAll.preCheckDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
@@ -163,9 +171,9 @@
 			</div>
 		</div>
 		<div class="form-actions">
-			<input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;
-			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
-		</div>
+		<input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;
+		<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
+	</div>
 	</form:form>
 </body>
 </html>

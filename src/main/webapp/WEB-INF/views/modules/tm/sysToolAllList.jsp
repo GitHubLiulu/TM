@@ -39,7 +39,7 @@
 			</li>
 
 			<li><label>ID：</label>
-				<input toolId="toolId" name="toolId" type="text" maxlength="50" class="input-medium" value="${toolId}"/>
+				<input toolIdReal="toolIdReal" name="toolIdReal" type="text" maxlength="50" class="input-medium" value="${toolIdReal}"/>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
@@ -52,9 +52,11 @@
 				<th>ID</th>
 				<th>工具分类</th>
 				<th>规格</th>
+				<th>价格</th>
 				<th>校验周期</th>
 				<th>是否循环校验</th>
 				<th>检验次数</th>
+				<th>购买时间</th>
 				<th>上次校验时间</th>
 				<th>下次校验时间</th>
 
@@ -66,10 +68,11 @@
 		<c:forEach items="${page.list}" var="sysToolAll">
 			<tr>
 				<td><a href="${ctx}/tm/sysToolAll/form?id=${sysToolAll.toolId}">
-					${sysToolAll.toolId}
+					${sysToolAll.toolIdReal}
 				</a></td>
 				<td>${sysToolAll.toolName}</td>
 				<td>${sysToolAll.specification}</td>
+				<td>${sysToolAll.price}元</td>
 				<td>${sysToolAll.checkPeriod}</td>
 				<td><c:choose>
 					<c:when test="${sysToolAll.isCycle eq '0'}">
@@ -80,11 +83,13 @@
 					</c:otherwise>
 				</c:choose></td>
 				<td>${sysToolAll.checkTimes}</td>
+				<td><fmt:formatDate value="${sysToolAll.buyDate}" pattern="yyyy/MM/dd"/> </td>
 				<td><fmt:formatDate value="${sysToolAll.preCheckDate}" pattern="yyyy/MM/dd"/> </td>
 				<td><fmt:formatDate value="${sysToolAll.checkDate}" pattern="yyyy/MM/dd"/> </td>
 				<shiro:hasPermission name="tm:sysToolAll:edit"><td>
     				<a href="${ctx}/tm/sysToolAll/form?id=${sysToolAll.toolId}">修改</a>
 					<a href="${ctx}/tm/sysToolAll/delete?id=${sysToolAll.toolId}" onclick="return confirmx('确认要删除该工具管理吗？', this.href)">删除</a>
+					<a href="${ctx}/tm/sysToolCheckRecord/list?toolId=${sysToolAll.toolId}">校验记录</a>
 				</td></shiro:hasPermission>
 			</tr>
 		</c:forEach>

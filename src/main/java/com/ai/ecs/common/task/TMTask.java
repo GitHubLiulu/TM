@@ -46,6 +46,8 @@ public class TMTask {
 					//写入记录表
 					SysToolCheckRecord sysToolCheckRecord = new SysToolCheckRecord();
 					sysToolCheckRecord.setToolId(sysToolAll.getToolId());
+					sysToolCheckRecord.setToolIdReal(sysToolAll.getToolIdReal());
+					sysToolCheckRecord.setToolName(sysToolAll.getToolName());
 					sysToolCheckRecordService.save(sysToolCheckRecord);
 					//更新SysToolAll表，record_flag字段，代表已记录
 					sysToolAll.setRecordFlag(Global.CHECK_YES);

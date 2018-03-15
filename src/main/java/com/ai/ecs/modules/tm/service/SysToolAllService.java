@@ -60,9 +60,15 @@ public class SysToolAllService extends CrudService<SysToolAllDao, SysToolAll> {
 		}
 		//如果为循环校验周期，则在现在时间基础上加上周期（天）的时间，即为下次校验的checkDate
 		if (Global.CHECK_NO.equals(sysToolAll.getIsCycle())) {
-			//sysToolAll.setCheckDate(DateUtils.changeDate(new Date(),Integer.parseInt(sysToolAll.getCheckPeriod())));
-			//调整为根据购买的日期，定义校验日期
-			sysToolAll.setCheckDate(DateUtils.changeDate(sysToolAll.getBuyDate(),Integer.parseInt(sysToolAll.getCheckPeriod())));
+			//下次校验时间=本次校验时间+循环的周期（如果没有本次校验即0次校验则，下次校验时间=购买时间+循环周期。）
+			if (sysToolAll.getPreCheckDate() != null) {
+				sysToolAll.setCheckDate(DateUtils.changeDate(sysToolAll.getPreCheckDate(),Integer.parseInt(sysToolAll.getCheckPeriod())));
+			}else {
+				//sysToolAll.setCheckDate(DateUtils.changeDate(new Date(),Integer.parseInt(sysToolAll.getCheckPeriod())));
+				//调整为根据购买的日期，定义校验日期
+				sysToolAll.setCheckDate(DateUtils.changeDate(sysToolAll.getBuyDate(),Integer.parseInt(sysToolAll.getCheckPeriod())));
+			}
+
 		} else {//单次校验，计算出周期，入库
 			sysToolAll.setCheckPeriod((int)(DateUtils.getDistanceOfTwoDate(sysToolAll.getBuyDate(),sysToolAll.getCheckDate())) + "");
 		}
@@ -78,11 +84,14 @@ public class SysToolAllService extends CrudService<SysToolAllDao, SysToolAll> {
 		sysToolAll1Temp.setPhone(sysToolAll.getPhone());
 		sysToolAll1Temp.setAmount(sysToolAll.getAmount());
 		sysToolAll1Temp.setCheckTimes(sysToolAll.getCheckTimes());
-		sysToolAll1Temp.setCheckDate(sysToolAll.getCheckDate());
+		//sysToolAll1Temp.setCheckDate(sysToolAll.getCheckDate());
+		sysToolAll1Temp.setPreCheckDate(sysToolAll.getPreCheckDate());
 		sysToolAll1Temp.setRecordFlag(sysToolAll.getRecordFlag());
 		sysToolAll1Temp.setPeriod(sysToolAll.getPeriod());
 		sysToolAll1Temp.setCheckPeriod(sysToolAll.getCheckPeriod());
 		sysToolAll1Temp.setIsCycle(sysToolAll.getIsCycle());
+		sysToolAll1Temp.setPrice(sysToolAll.getPrice());
+		sysToolAll1Temp.setToolIdReal(sysToolAll.getToolIdReal());
 
 		if (sysToolAll1Temp.getIsNewRecord()) {
 			sysToolAll1Temp.preInsert();
@@ -95,6 +104,7 @@ public class SysToolAllService extends CrudService<SysToolAllDao, SysToolAll> {
 
 		sysRemindInfo.setToolId(sysToolAll1Temp.getToolId().toString());
 		sysRemindInfo.setPeriod(Global.defalut_period);
+		sysRemindInfo.setToolIdReal(sysToolAll1Temp.getToolIdReal());
 		sysRemindInfoService.save(sysRemindInfo);
 		//super.save(sysToolAll);
 

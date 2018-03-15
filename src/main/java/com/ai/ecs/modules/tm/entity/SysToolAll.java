@@ -43,11 +43,21 @@ public class SysToolAll extends DataEntity<SysToolAll> {
 
 	private String toolIdReal ;//用户实际录入ID
 
+	private String price ; //价格
+
 	public SysToolAll() {
 		super();
 		this.checkTimes = DEL_FLAG_NORMAL;
 		this.checkFlag = DEL_FLAG_NORMAL;
 		this.recordFlag = DEL_FLAG_NORMAL;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 	public String getToolIdReal() {

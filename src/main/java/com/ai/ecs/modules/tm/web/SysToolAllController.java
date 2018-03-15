@@ -161,14 +161,18 @@ public class SysToolAllController extends BaseController {
 		sysToolCheckRecord.setId(sysToolAll.getToolId());
 		sysToolCheckRecord.setToolId(sysToolAll.getToolId());
 		sysToolCheckRecord.setDelFlag(Global.CHECK_YES);
+		sysToolCheckRecord.setToolIdReal(sysToolAll.getToolIdReal());
+		sysToolCheckRecord.setToolName(sysToolAll.getToolName());
 		sysToolCheckRecordService.save(sysToolCheckRecord);
-		addMessage(redirectAttributes, "校验工具成功");
+
 		//<td><a href="${ctx}/tm/sysToolAll/form?id=${sysToolAll.toolId}">
 		toolIdReturn = sysToolAll.getToolId();
 		//如果是循环校验，校验完成后跳转到确认下次校验周期，如果是非循环校验则不跳转
 		if (Global.CHECK_NO.equals(sysToolAll.getIsCycle())) {
+			addMessage(redirectAttributes, "本次校验工具成功,请设置下次校验时间请设置下次校验时间！");
 			return "redirect:"+Global.getAdminPath()+"/tm/sysToolAll/checkFormReturn";
 		}else {
+			addMessage(redirectAttributes, "校验工具成功");
 			return "redirect:"+Global.getAdminPath()+"/tm/sysToolAll/checkList?repage";
 		}
 
