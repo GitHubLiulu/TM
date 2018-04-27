@@ -55,7 +55,8 @@
 		a.check_flag AS "checkFlag" ,
 		a.is_cycle AS "isCycle",
 		a.CHECKPERIOD  AS "checkPeriod",
-		a.TOOL_ID_REAL AS "toolIdReal"
+		a.TOOL_ID_REAL AS "toolIdReal",
+		a.price AS "price"
 		FROM SYS_TOOL_ALL A
 		LEFT JOIN SYS_DICT SD1
 		ON A.TOOL_NAME = SD1.VALUE
